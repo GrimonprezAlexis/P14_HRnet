@@ -4,8 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 git clone https://github.com/GrimonprezAlexis/P14_HRnet.git
 
 ## Run App 
-Install npm dependencies using `npm install`
-Use `npm start` to run open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Install npm dependencies using `npm install`
+- Use `npm start` to run open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 # A propos
 Projet 14 - Faites passer une librairie jQuery vers React
