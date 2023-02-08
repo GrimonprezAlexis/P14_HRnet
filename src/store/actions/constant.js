@@ -1,0 +1,3 @@
+export const POST_EMPLOYEE = 'POST_EMPLOYEE';
+export const FILTER_EMPLOYEE = 'FILTER_EMPLOYEE';
+export const TOGGLE_MODAL = 'TOGGLE_MODAL';

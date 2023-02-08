@@ -1,17 +1,19 @@
 import React, { useState }  from "react"
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { POST_EMPLOYEE, TOGGLE_MODAL } from "../store/actions/constant";
+
+import { statesUSA, departments } from "../json/data";
 
 const CreateEmployeeForm = () => {
-
+	const [jsonStatesUSA, setJsonStatesUSA] = useState([]);
+    const dispatch = useDispatch();
 
     const {
         register,
         handleSubmit,
         formState: { errors }
     } = useForm();
-
-	const [showModal, setShowModal] = useState(false);
-	const [jsonStatesUSA, setJsonStatesUSA] = useState([]);
 
 
     const onSubmit = async e => {
@@ -26,8 +28,21 @@ const CreateEmployeeForm = () => {
             state: e.state,
             zipCode: e.zipCode
         };
-        setShowModal(true);
+
+        dispatch({
+            type: POST_EMPLOYEE,
+            payload: employeeData
+        });
+        handleOpenModal(true);
     }
+
+    const handleOpenModal = (isModalOpen) => {
+        dispatch({
+          type: TOGGLE_MODAL,
+          payload: isModalOpen
+        });  
+      };
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} id="create-employee">

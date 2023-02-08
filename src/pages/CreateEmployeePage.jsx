@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import CreateEmployeeForm from "../components/CreateEmployeeForm";
+import PropTypes from 'prop-types';
 
-import { statesUSA, departments } from "../json/data";
+import CreateEmployeeForm from "../components/CreateEmployeeForm";
 
 const CreateEmployeePage = () => {
 	const title = 'Create Employee'
@@ -11,13 +10,7 @@ const CreateEmployeePage = () => {
 		<>
         <section className="container">
 		    <h1>{title}</h1>
-
-
-            <CreateEmployeeForm
-
-
-            
-            />
+            <CreateEmployeeForm/>
         </section>
 		</>
 	)
