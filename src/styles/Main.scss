@@ -1,0 +1,62 @@
+/*--------------------------------------------------------------
+# Import
+--------------------------------------------------------------*/
+@import "./Reset.scss";
+@import "./Variable.scss";
+
+@import "./404.scss";
+@import "./Layout.scss";
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+html {
+    height: 100%; 
+}
+body {
+    height: 100%; 
+    user-select: none;          /* Likely future */    
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;
+    font-family: $font;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+@for $i from 0 to 10 {
+    .mb-#{$i}rem {
+      margin-bottom: #{$i}rem;
+    }
+    .mt-#{$i}rem {
+      margin-top: #{$i}rem;
+    }
+}
+
+/*--------------------------------------------------------------
+# Legacy css
+--------------------------------------------------------------*/
+%font-style {
+    font-family: $font;
+    font-style: normal;
+    font-weight: 500;
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+input:focus, button:focus{
+    outline: none;
+}
+
+.bgDanger { background-color: $red!important; }
+.bgSuccess { background-color: $green!important; }
+.bgWarning { background-color: $orange!important; }

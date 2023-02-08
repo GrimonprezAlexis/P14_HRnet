@@ -1,0 +1,34 @@
+.error {
+    margin-top: 15rem;
+
+    &__404 {
+        @extend %font-style;
+        font-weight: bold;
+        font-size: 288px;
+        line-height: 41px;
+        text-align: center;
+        color: $red;
+
+        &__message {
+            @extend %font-style;
+            font-size: 36px;
+            line-height: 51px;
+            color: $red;
+            margin: 0 auto;
+            margin-top: 10rem;
+            display: flex;
+            justify-content: center;
+        }
+        &__backHome {
+            @extend %font-style;
+            font-size: 18px;
+            line-height: 26px;
+            text-decoration-line: underline;
+            color: $red;
+            margin: 0 auto;
+            margin-top: 10rem;
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
