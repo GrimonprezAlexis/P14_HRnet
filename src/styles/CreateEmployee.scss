@@ -1,0 +1,70 @@
+%fieldSize {
+    height: 2.5rem;
+    width: 25rem;
+}
+
+%flexColumnCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container {
+    @extend %flexColumnCenter;
+    align-items: center;
+    margin: auto;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+// Form
+#create-employee {
+    @extend %flexColumnCenter;
+    background-color: $white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    row-gap: 2rem;
+
+    label {
+        font-size: 1rem;
+        display: block;
+        color: $customBlack;
+        margin-top: 1rem;
+        line-height: 2rem;
+        font-weight: lighter;
+    }
+
+    input {
+        border-radius: 5px;
+        @extend %fieldSize;
+    }
+
+    select {
+        padding: 0.5rem;
+        border-radius: 5px;
+        @extend %fieldSize
+    }
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: row;
+    column-gap: 3rem;
+}
+
+.formAction {
+    text-align: center;
+    input {
+        font-weight: 200;
+        font-size: 1rem;
+        padding: 0.5rem 2rem;
+        border: 1px solid transparent;
+        background: $blue;
+        color: $white;
+    }
+}
+
+.departement {
+    @extend %flexColumnCenter;
+}
