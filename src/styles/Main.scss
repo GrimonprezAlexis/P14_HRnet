@@ -6,7 +6,7 @@
 
 @import "./404.scss";
 @import "./CreateEmployee.scss";
-@import "./Layout.scss";
+@import "./Header.scss";
 
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
@@ -24,7 +24,7 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    background-color: $customBlack;
+    background: linear-gradient(to right, #3e3f68, #a3a1ff);
 }
 
 @for $i from 0 to 10 {
@@ -45,6 +45,13 @@ body {
     font-weight: 500;
 }
 
+%message-style {
+    margin-top: 0;
+    padding: 2px;
+    font-size: small;
+}
+
+
 
 ul {
     padding: 0;
@@ -60,6 +67,15 @@ input:focus, button:focus{
     outline: none;
 }
 
-.bgDanger { background-color: $red!important; }
-.bgSuccess { background-color: $green!important; }
-.bgWarning { background-color: $orange!important; }
+.bgDanger { 
+    @extend %message-style;
+    background-color: $red!important; 
+}
+.bgSuccess { 
+    @extend %message-style;
+    background-color: $green!important; 
+}
+.bgWarning { 
+    @extend %message-style;
+    background-color: $orange!important; 
+}

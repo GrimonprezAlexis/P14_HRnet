@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { POST_EMPLOYEE, TOGGLE_MODAL } from "../store/actions/constant";
 
 import { statesUSA, departments } from "../json/data";
+import CustomDropdown from "agr-custom-dropdown";
 
 const CreateEmployeeForm = () => {
 	const [jsonStatesUSA, setJsonStatesUSA] = useState([]);
@@ -54,13 +55,13 @@ const CreateEmployeeForm = () => {
                             required: true
                         })}
                     />
-                    {errors.firstName ? errors.firstName.type === "required" && <p className="bgWarning">This field is required</p> : ''}
+                    {errors.firstName ? errors.firstName.type === "required" && <p className="bgWarning">First name is required</p> : ''}
 
                     <label htmlFor="lastName">Last Name *</label>
                     <input type="text" id="lastName" placeholder="Last name" {...register("lastName", {
                         required: true
                     })}/>
-                    {errors.lastName ? errors.lastName.type === "required" && <p className="bgWarning">This field is required</p> : ''}
+                    {errors.lastName ? errors.lastName.type === "required" && <p className="bgWarning">Last name is required</p> : ''}
 
                     <label htmlFor="dateOfBirth">Date of Birth</label>
                     <input id="dateOfBirth" type="date" />
@@ -70,14 +71,20 @@ const CreateEmployeeForm = () => {
 
                     <div className="departement">
                         <label htmlFor="department">Department *</label>
-                        <select name="department" id="department" {...register("department")}>
+                        <CustomDropdown
+                            required={true}
+                            options={departments} 
+                            onChange={(selectedOption) => console.log(selectedOption)}
+                        />
+
+                        {/* <select name="department" id="department" {...register("department")}>
                             <option disabled>-- Select option --</option>
                             <option>Sales</option>
                             <option>Marketing</option>
                             <option>Engineering</option>
                             <option>Human Resources</option>
                             <option>Legal</option>
-                        </select>
+                        </select> */}
                     </div>
                 </div>
                 
@@ -113,7 +120,7 @@ const CreateEmployeeForm = () => {
                 </fieldset>
             </div>
 
-            <div className="formAction">
+            <div id="formAction">
                 <input type="submit" value="Save"/>
             </div>                
         </form>
