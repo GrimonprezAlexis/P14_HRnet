@@ -46,12 +46,13 @@ body {
 }
 
 %message-style {
-    margin-top: 0;
     padding: 2px;
     font-size: small;
+    color: $white;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 0;
 }
-
-
 
 ul {
     padding: 0;
@@ -67,11 +68,11 @@ input:focus, button:focus{
     outline: none;
 }
 
-.bgDanger { 
+.bgDanger {
     @extend %message-style;
     background-color: $red!important; 
 }
-.bgSuccess { 
+.bgSuccess {
     @extend %message-style;
     background-color: $green!important; 
 }
