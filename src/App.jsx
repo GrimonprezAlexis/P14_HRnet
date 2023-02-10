@@ -11,6 +11,7 @@ import Header from "./components/Header";
 import Error404 from "./pages/404";
 import CreateEmployeePage from "./pages/CreateEmployeePage";
 import CurrentEmployeesPage from "./pages/CurrentEmployeesPage";
+import { useState } from "react";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -29,9 +30,17 @@ const App = () => {
     { value: 'vanilla', label: 'Vanilla' },
   ];
 
+  const [selectedOption, setSelectedOption] = useState(null);
+
   return (
     <div className="app">
-      <CustomDropdown options={options} />
+      <CustomDropdown 
+        options={options} 
+        onChange={(selectedOption) => {
+          console.log(selectedOption);
+          setSelectedOption(selectedOption)
+        }}
+      />
 
 
       {isModalOpen && (

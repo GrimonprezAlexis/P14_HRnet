@@ -19,6 +19,7 @@
 
     h1 {
         color: $white;
+        letter-spacing: 0.05rem;
     }
 }
 
@@ -62,6 +63,7 @@
 
 #formAction {
     text-align: center;
+    margin-top: 1.5rem;
     input {
         width: 100%;
         font-weight: 200;

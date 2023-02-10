@@ -42,7 +42,11 @@ const CreateEmployeeForm = () => {
           type: TOGGLE_MODAL,
           payload: isModalOpen
         });  
-      };
+    };
+    
+    // Save employee data in local storage after dispatch
+    const employeeForLocalStorage = useSelector(state => state.data.employees);
+    localStorage.setItem('employees', JSON.stringify(employeeForLocalStorage));
 
 
     return (
@@ -76,15 +80,6 @@ const CreateEmployeeForm = () => {
                             options={departments} 
                             onChange={(selectedOption) => console.log(selectedOption)}
                         />
-
-                        {/* <select name="department" id="department" {...register("department")}>
-                            <option disabled>-- Select option --</option>
-                            <option>Sales</option>
-                            <option>Marketing</option>
-                            <option>Engineering</option>
-                            <option>Human Resources</option>
-                            <option>Legal</option>
-                        </select> */}
                     </div>
                 </div>
                 
@@ -104,13 +99,10 @@ const CreateEmployeeForm = () => {
                         })}/>
 
                         <label htmlFor="state">State</label>
-                        <select name="state" id="state" {...register("state")}>
-                            <option disabled>-- Select state --</option>
-                        {
-                            jsonStatesUSA && jsonStatesUSA.length > 0 && jsonStatesUSA.map((item) => <option key={item.name}>{item.name}</option>) 
-
-                        }
-                        </select>
+                        <CustomDropdown
+                            options={statesUSA} 
+                            onChange={(selectedOption) => console.log(selectedOption)}
+                        />
 
                         <label htmlFor="zipCode">Zip Code</label>
                         <input id="zipCode" type="number" 
