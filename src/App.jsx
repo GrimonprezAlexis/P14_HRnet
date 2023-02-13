@@ -3,15 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { TOGGLE_MODAL } from "./store/actions/constant";
 
 import Modal from 'agr-custom-modal';
-import CustomDropdown from 'agr-custom-dropdown';
-
 import Header from "./components/Header";
-
 
 import Error404 from "./pages/404";
 import CreateEmployeePage from "./pages/CreateEmployeePage";
 import CurrentEmployeesPage from "./pages/CurrentEmployeesPage";
-import { useState } from "react";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -24,25 +20,8 @@ const App = () => {
     });
   };
 
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-  ];
-
-  const [selectedOption, setSelectedOption] = useState(null);
-
   return (
     <div className="app">
-      <CustomDropdown 
-        options={options} 
-        onChange={(selectedOption) => {
-          console.log(selectedOption);
-          setSelectedOption(selectedOption)
-        }}
-      />
-
-
       {isModalOpen && (
         <Modal
           title="Employee Created!"
