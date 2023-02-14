@@ -1,7 +1,7 @@
 import React  from "react"
 import { Link } from 'react-router-dom'
 
-const Error404 = ({ match }) => {
+const Error404 = () => {
     return (
         <div className="container error">
             <p className="error__404">404</p>

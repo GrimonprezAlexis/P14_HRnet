@@ -1,15 +1,16 @@
 import React from "react";
 import CreateEmployeeForm from "../components/CreateEmployeeForm";
+import { statesUSA, departments } from '../data';
 
 const CreateEmployeePage = () => {
-	const title = 'Create Employee'
-
 	return (
+		<>
         <section className="container">
-		    <h1>{title}</h1>
-            <CreateEmployeeForm/>
+		    <h1>Create Employee</h1>
+            <CreateEmployeeForm statesUSA={statesUSA} departments={departments}/>
         </section>
+		</>
 	)
 }
 
-export default CreateEmployeePage
+export default CreateEmployeePage;

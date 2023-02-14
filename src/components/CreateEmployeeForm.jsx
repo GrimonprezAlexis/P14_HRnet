@@ -6,105 +6,58 @@ import { POST_EMPLOYEE } from "../store/actions/constant";
 import CustomDropdown from "agr-custom-dropdown";
 import Modal from "agr-custom-modal";
 
-import { statesUSA, departments } from "../json/data";
+const CreateEmployeeForm = ({ statesUSA, departments }) => {
+    const dispatch = useDispatch();
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
-const CreateEmployeeForm = () => {
-    const [birthdate, setBirthdate] = useState('');
-    const [startDate, setStartDate] = useState('');
+    const [modalTitle, setModalTitle] = useState("Employee Created!");
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
     const [selectedDepartment, setSelectedDepartment] = useState(null);
 
-    const defaultModalTitle = "Employee Created!";
-    const [modalTitle, setModalTitle] = useState(defaultModalTitle);
-    const [isModalOpen, setIsOpenModal] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
-    const [showRequiredMessage, setShowRequiredMessage] = useState(false);
+    const [startDate, setStartDate] = useState("");
+    const [birthDate, setBirthdayDate] = useState("");
 
-    const dispatch = useDispatch();
+    const handleBirthDateChange = (e) => {
+        setBirthdayDate(e.target.value);
+    };
 
+    const handleStartDateChange = (e) => {
+        setStartDate(e.target.value);
+    };
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors }
-    } = useForm();
+    const handleChangeDepartments = e => {
+        console.log("e", e);
+        setSelectedDepartment(e);
+    };
 
     const onSubmit = async e => {
-
-        if(!selectedDepartment) {
-            setIsOpenModal(true);
-            setShowRequiredMessage(true);
+        if (!selectedDepartment) {
             setErrorMessage("Please select a department");
-            setModalTitle("Error!")
-        } else {
-            setShowRequiredMessage(false);
-            setModalTitle(defaultModalTitle);
-        }
-
-        const employeeData = {
-            firstName: e.firstName,
-            lastName: e.lastName,
-            dateOfBirth: formatDate(e.dateOfBirth),
-            tartDate: formatDate(e.startDate),
-            department: e.department,
-            street: e.street,
-            city: e.city,
-            state: e.state,
-            zipCode: e.zipCode
-        };
-
-        dispatch({
-            type: POST_EMPLOYEE,
-            payload: employeeData
-        });
-
-        handleToggleModal(true);
-    }
-
-    const handleToggleModal = (isModalOpen) => {
-        setIsOpenModal(isModalOpen)
+            setModalTitle("Error!");
+            setIsModalOpen(true);
+          } else {
+            setModalTitle("Employee Created!");
+            dispatch({ type: POST_EMPLOYEE, payload: {
+                firstName: e.firstName,
+                lastName: e.lastName,
+                dateOfBirth: e.dateOfBirth,
+                tartDate: e.startDate,
+                department: e.department,
+                street: e.street,
+                city: e.city,
+                state: e.state,
+                zipCode: e.zipCode
+            }});
+            setIsModalOpen(true);
+          }
     };
 
-    const handleChangeDate = (event) => {
-        setBirthdate(event.target.value);
-    };
-    const handleChangeStartDate = (event) => {
-        setStartDate(event.target.value);
-    };
-
-    // Format date to DD/MM/YYYY
-    const formatDate = (date) => {
-        const d = new Date(date);
-        let month = '' + (d.getMonth() + 1);
-        let day = '' + d.getDate();
-        const year = d.getFullYear();
-      
-        if (month.length < 2) {
-          month = '0' + month;
-        }
-        if (day.length < 2) {
-          day = '0' + day;
-        }
-        return [day, month, year].join('/');
-    };
-
-    
-    // Save employee data in local storage after dispatch
     const employeeForLocalStorage = useSelector(state => state.data.employees);
     localStorage.setItem('employees', JSON.stringify(employeeForLocalStorage));
 
-
     return (
         <>
-        {isModalOpen && (
-            <Modal
-            title={modalTitle}
-            isOpen={isModalOpen}
-            onClose={handleToggleModal(false)}
-            >
-            <p>{errorMessage}</p>
-            </Modal>
-        )}
-
         <form onSubmit={handleSubmit(onSubmit)} id="create-employee">
             <div className="formContainer">
                 <div id="formText">
@@ -123,13 +76,30 @@ const CreateEmployeeForm = () => {
                     {errors.lastName ? errors.lastName.type === "required" && <p className="bgWarning">Last name is required</p> : ''}
 
                     <label htmlFor="dateOfBirth">Date of Birth</label>
-                    <input type="date" value={birthdate} onChange={handleChangeDate} />
+                    <input
+                        type="date"
+                        name="birthDate"
+                        value={birthDate}
+                        onChange={handleBirthDateChange}
+                        {...register("birthDate", { required: false })}
+                    />
 
                     <label htmlFor="startDate">Start Date</label>
-                    <input type="date" value={startDate} onChange={handleChangeStartDate} />
+                    <input
+                        type="date"
+                        name="startDate"
+                        value={startDate}
+                        onChange={handleStartDateChange}
+                        {...register("startDate", { required: false })}
+                    />
 
                     <div className="departement">
                         <label htmlFor="department">Department *</label>
+                        <CustomDropdown
+                            options={departments} 
+                            onChange={handleChangeDepartments}
+                            forceRequired={true}
+                        />
                     </div>
                 </div>
                 
@@ -166,8 +136,18 @@ const CreateEmployeeForm = () => {
                 <input type="submit" value="Save"/>
             </div>                
         </form>
-        </>
 
+
+        {isModalOpen && (
+        <Modal
+            title={modalTitle}
+            isOpen={isModalOpen}
+            onClose={setIsModalOpen(false)}
+            >
+            <p>{errorMessage}</p>
+        </Modal>
+        )}
+        </>
     )
 }
 
