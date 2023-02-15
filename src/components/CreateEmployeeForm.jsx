@@ -6,55 +6,77 @@ import { POST_EMPLOYEE } from "../store/actions/constant";
 import CustomDropdown from "agr-custom-dropdown";
 import Modal from "agr-custom-modal";
 
+import useEmployeeStorage from "./EmployeeStorage";
+
+
 const CreateEmployeeForm = ({ statesUSA, departments }) => {
     const dispatch = useDispatch();
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const { saveEmployee } = useEmployeeStorage();
 
+
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
     const [modalTitle, setModalTitle] = useState("Employee Created!");
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
+
     const [selectedDepartment, setSelectedDepartment] = useState(null);
+    const [selectedStatesUSA, setSelectedStatesUSA] = useState(null);
+
+    const [forceRequired, setForceRequired] = useState(false);
 
     const [startDate, setStartDate] = useState("");
     const [birthDate, setBirthdayDate] = useState("");
 
     const handleBirthDateChange = (e) => {
-        setBirthdayDate(e.target.value);
+        setBirthdayDate(convertDateToString(e.target.valueAsDate));
     };
 
     const handleStartDateChange = (e) => {
-        setStartDate(e.target.value);
+        setStartDate(convertDateToString(e.target.valueAsDate));
     };
 
-    const handleChangeDepartments = e => {
-        console.log("e", e);
-        setSelectedDepartment(e);
+    const convertDateToString = (date) => {
+        const dateString = date.toISOString().split('T')[0];
+        return dateString;
     };
 
-    const onSubmit = async e => {
+    const formatToDDMMYYYY = (dateString) => {
+        const [year, month, day] = dateString.split("-");
+        return `${day}/${month}/${year}`;
+    }
+
+    const onSubmit = async (e) => {
         if (!selectedDepartment) {
-            setErrorMessage("Please select a department");
-            setModalTitle("Error!");
-            setIsModalOpen(true);
-          } else {
-            setModalTitle("Employee Created!");
-            dispatch({ type: POST_EMPLOYEE, payload: {
+            setForceRequired(true);
+        } else {
+            let newEmployee = {
                 firstName: e.firstName,
                 lastName: e.lastName,
-                dateOfBirth: e.dateOfBirth,
-                tartDate: e.startDate,
-                department: e.department,
+                dateOfBirth: formatToDDMMYYYY(birthDate),
+                startDate: formatToDDMMYYYY(startDate),
+                department: selectedDepartment?.label,
                 street: e.street,
                 city: e.city,
-                state: e.state,
-                zipCode: e.zipCode
-            }});
+                state: selectedStatesUSA.label,
+                zipCode: e.zipCode,
+            }
+
+            dispatch({
+                type: POST_EMPLOYEE,
+                payload: newEmployee,
+            });
+
+            const updatedEmployees = saveEmployee(newEmployee);
+
+            setModalTitle("Employee Created!");
             setIsModalOpen(true);
-          }
+
+            console.log("updatedEmployees", updatedEmployees);
+        }
     };
 
-    const employeeForLocalStorage = useSelector(state => state.data.employees);
-    localStorage.setItem('employees', JSON.stringify(employeeForLocalStorage));
+    const handleModalClose = () => {
+        setIsModalOpen(false)
+    };
 
     return (
         <>
@@ -81,7 +103,6 @@ const CreateEmployeeForm = ({ statesUSA, departments }) => {
                         name="birthDate"
                         value={birthDate}
                         onChange={handleBirthDateChange}
-                        {...register("birthDate", { required: false })}
                     />
 
                     <label htmlFor="startDate">Start Date</label>
@@ -90,15 +111,14 @@ const CreateEmployeeForm = ({ statesUSA, departments }) => {
                         name="startDate"
                         value={startDate}
                         onChange={handleStartDateChange}
-                        {...register("startDate", { required: false })}
                     />
 
                     <div className="departement">
                         <label htmlFor="department">Department *</label>
                         <CustomDropdown
                             options={departments} 
-                            onChange={handleChangeDepartments}
-                            forceRequired={true}
+                            onChange={(e) => setSelectedDepartment(e)}
+                            forceRequired={forceRequired}
                         />
                     </div>
                 </div>
@@ -121,7 +141,7 @@ const CreateEmployeeForm = ({ statesUSA, departments }) => {
                         <label htmlFor="state">State</label>
                         <CustomDropdown
                             options={statesUSA} 
-                            onChange={(selectedStates) => console.log(selectedStates)}
+                            onChange={(e) => setSelectedStatesUSA(e)}
                         />
 
                         <label htmlFor="zipCode">Zip Code</label>
@@ -138,17 +158,17 @@ const CreateEmployeeForm = ({ statesUSA, departments }) => {
         </form>
 
 
-        {isModalOpen && (
         <Modal
             title={modalTitle}
             isOpen={isModalOpen}
-            onClose={setIsModalOpen(false)}
-            >
-            <p>{errorMessage}</p>
+            onClose={handleModalClose}
+        >
         </Modal>
-        )}
+
         </>
     )
 }
+
+
 
 export default CreateEmployeeForm;
