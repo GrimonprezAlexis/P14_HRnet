@@ -99,6 +99,7 @@ const CreateEmployeeForm = ({ statesUSA, departments }) => {
 
                     <label htmlFor="dateOfBirth">Date of Birth</label>
                     <input
+                        id="dateOfBirth"
                         type="date"
                         name="birthDate"
                         value={birthDate}
@@ -107,6 +108,7 @@ const CreateEmployeeForm = ({ statesUSA, departments }) => {
 
                     <label htmlFor="startDate">Start Date</label>
                     <input
+                        id="startDate"
                         type="date"
                         name="startDate"
                         value={startDate}
