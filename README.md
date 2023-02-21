@@ -1,19 +1,17 @@
-## Dependancies (Lib React)
-[Custom Modal](https://www.npmjs.com/package/agr-custom-modal)
-[Custom Dropdown](https://www.npmjs.com/package/agr-custom-dropdown)
-[Custom Table](https://www.npmjs.com/package/agr-custom-table)
+# Dependancies (Lib React)
+- [Custom Modal](https://www.npmjs.com/package/agr-custom-modal)
+- [Custom Dropdown](https://www.npmjs.com/package/agr-custom-dropdown)
+- [Custom Table](https://www.npmjs.com/package/agr-custom-table)
 
-## App Online
+# App Online
 [HRnet React APP](https://p14-h-rnet-gules.vercel.app/)
 
-# Clone this project :
-git clone https://github.com/GrimonprezAlexis/P14_HRnet.git
-
-## Run App 
+## Install
+- `git clone https://github.com/GrimonprezAlexis/P14_HRnet.git` 
 - Install npm dependencies using `npm install`
 - Use `npm start` to run open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-# A propos
+## A propos
 Projet 14 - Faites passer une librairie jQuery vers React
 Société financière WealthHealth
 
