@@ -1,4 +1,10 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Dependancies (Lib React)
+[Custom Modal](https://www.npmjs.com/package/agr-custom-modal)
+[Custom Dropdown](https://www.npmjs.com/package/agr-custom-dropdown)
+[Custom Table](https://www.npmjs.com/package/agr-custom-table)
+
+## App Online
+[HRnet React APP](https://p14-h-rnet-gules.vercel.app/)
 
 # Clone this project :
 git clone https://github.com/GrimonprezAlexis/P14_HRnet.git
@@ -45,5 +51,7 @@ Générer un rapport de performance au format JSON avant et après conversion
 ## Ressource
 - [Repo HRnet a convertir](https://github.com/OpenClassrooms-Student-Center/P12_Front-end)
 - [Hackernoon](https://hackernoon.com/creating-a-library-of-react-components-using-create-react-app-without-ejecting-d182df690c6b)
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 
